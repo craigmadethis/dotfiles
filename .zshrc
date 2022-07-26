@@ -113,6 +113,9 @@ fi
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias gitdir="cd ~/git"
+alias tdlf="cd ~/git/tdl-front"
+alias tdlb="cd ~/git/tdl-back"
+alias nvim="~/.local/bin/lvim"
 
 export NVM_DIR=~/.nvm
 [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
