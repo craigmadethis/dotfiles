@@ -6,7 +6,14 @@ require('telescope').setup {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
       }
+    },
+    pickers ={
+      buffers ={
+        ignore_current_buffer = true,
+        sort_mru = true
+      }
     }
+
   }
 }
 -- ## telescope + fzf
