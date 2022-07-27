@@ -7,7 +7,7 @@ local lspconfig = require("lspconfig")
 
 
 -- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'eslint' }
 
 -- Ensure the servers above are installed
 lsp_installer.setup({
@@ -16,7 +16,7 @@ lsp_installer.setup({
 --
 -- for each server check if the server has custom options and apply if true
 for _, server in ipairs(servers) do
-  local opts ={
+  local opts = {
     on_attach = require("user.lsp.handlers").on_attach,
     capabilities = require("user.lsp.handlers").capabilities,
   }

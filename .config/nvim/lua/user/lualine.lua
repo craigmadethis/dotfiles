@@ -101,7 +101,7 @@ local lsp = {
       return "[" .. table.concat(unique_client_names, ", ") .. "]"
     end,
     color = { gui = "bold" },
-    cond = hide_in_width,
+    -- cond = hide_in_width,
   }
 
 -- would normally be require("lualine").setup, but already called it above

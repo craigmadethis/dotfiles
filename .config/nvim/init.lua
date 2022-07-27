@@ -7,10 +7,11 @@ require("user.utils")
 
 -- lsp
 require("user.lsp")
+-- require("user.lsp.null-ls")
 require("user.nvim-cmp")
 
 -- telescope
 require("user.telescope")
 
--- plugin configs 
+-- plugin configs
 require("user.lualine")
