@@ -94,6 +94,13 @@ export PATH=/home/cshewry/.nvm/versions/node/v16.15.1/bin:$PATH
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+# Example aliases
+alias nvim="~/.local/bin/lvim"
+alias zshconfig="nvim ~/.zshrc"
+alias ohmyzsh="nvim ~/.oh-my-zsh"
+alias gitdir="cd ~/git"
+alias tdlf="cd ~/git/tdl-front"
+alias tdlb="cd ~/git/tdl-back"
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
 	export EDITOR='vim'
@@ -109,13 +116,7 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="nvim ~/.oh-my-zsh"
-alias gitdir="cd ~/git"
-alias tdlf="cd ~/git/tdl-front"
-alias tdlb="cd ~/git/tdl-back"
-alias nvim="~/.local/bin/lvim"
+#alias nvim="~/.local/bin/lvim"
 
 export NVM_DIR=~/.nvm
 [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
