@@ -139,3 +139,7 @@ timezsh() {
 }
 
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="`yarn global bin`:$PATH"
