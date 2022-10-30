@@ -101,6 +101,7 @@ alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias gitdir="cd ~/git"
 alias tdlf="cd ~/git/tdl-front"
 alias tdlb="cd ~/git/tdl-back"
+alias tsm="cd ~/git/tsafe/tsafe-mobile"
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
 	export EDITOR='vim'
