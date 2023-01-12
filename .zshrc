@@ -88,7 +88,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export PATH=~/.local/bin/:$PATH
-# export PATH=/home/cshewry/.nvm/versions/node/v16.15.1/bin:$PATH
+export PATH=/home/cshewry/.nvm/versions/node/v16.15.1/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
