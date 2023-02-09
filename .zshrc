@@ -89,6 +89,8 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=~/.local/bin/:$PATH
 export PATH=/home/cshewry/.nvm/versions/node/v16.15.1/bin:$PATH
+export NODE_PATH=`which node`
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -102,6 +104,7 @@ alias gitdir="cd ~/git"
 alias tdlf="cd ~/git/tdl-front"
 alias tdlb="cd ~/git/tdl-back"
 alias tsm="cd ~/git/tsafe/tsafe-mobile"
+alias notes="nvim ~/notes"
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
 	export EDITOR='vim'
@@ -119,12 +122,12 @@ fi
 #
 #alias nvim="~/.local/bin/lvim"
 
-export NVM_DIR=~/.nvm
-[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
-#
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NVM_DIR=~/.nvm
+# [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
+# #
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

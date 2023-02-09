@@ -124,6 +124,12 @@ lvim.builtin.treesitter.highlight.enable = true
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "eslint" })
 local opts = {} -- check the lspconfig documentation for a list of all possible options
 require("lvim.lsp.manager").setup("eslint", opts)
+
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "angularls" })
+local opts = {} -- check the lspconfig documentation for a list of all possible options
+require("lvim.lsp.manager").setup("angularls", opts)
+
+
 -- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
 -- ---`:LvimInfo` lists which server(s) are skipped for the current filetype
 -- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
@@ -153,7 +159,7 @@ formatters.setup {
     -- extra_args = { "--print-with", "100" },
     extra_args = { "--line-width", "80" },
     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    filetypes = { "typescript", "typescriptreact" },
+    filetypes = { "typescript", "typescriptreact", "css", "html", "scss", "angular" },
   },
 }
 
@@ -182,6 +188,9 @@ formatters.setup {
 --       cmd = "TroubleToggle",
 --     },
 -- }
+lvim.plugins = {
+  { "elgiano/nvim-treesitter-angular", branch = "topic/jsx-fix" }
+}
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
@@ -205,6 +214,6 @@ if vim.fn.has "wsl" == 1 then
     paste = {
       ["+"] = "win32yank.exe -o --lf",
       ["*"] = "win32yank.exe -o --lf",
-    },
+    }
   }
 end
