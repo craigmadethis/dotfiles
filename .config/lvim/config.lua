@@ -1,5 +1,5 @@
 --[[
-lvim is the global options object
+leslintvim is the global options object
 
 Linters should be
 filled in as strings with either
@@ -25,8 +25,16 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<C-g>"] = ":Telescope find_files<CR>"
 lvim.keys.normal_mode["<C-p>"] = ":Telescope buffers<CR>"
 lvim.keys.normal_mode["<C-f>"] = ":Telescope live_grep<CR>"
+lvim.keys.normal_mode["<C-w>"] = ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>"
+lvim.keys.normal_mode["<C-a>"] = ":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>"
 lvim.keys.normal_mode["<C-t>"] = false
 lvim.keys.normal_mode["<C-T>"] = false
+-- center on page on scroll
+lvim.keys.normal_mode["<C-d>"] = "<C-d>zz"
+lvim.keys.normal_mode["<C-u>"] = "<C-u>zz"
+-- unsure on this
+lvim.keys.normal_mode["n"] = "nzzzv"
+lvim.keys.normal_mode["N"] = "Nzzzv"
 
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
@@ -40,6 +48,7 @@ lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 -- local _, actions = pcall(require, "telescope.actions")
+require("telescope").load_extension("git_worktree")
 -- lvim.builtin.telescope.defaults.mappings = {
 --   -- for input mode
 --   i = {
@@ -61,15 +70,15 @@ lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
--- lvim.builtin.which_key.mappings["t"] = {
---   name = "+Trouble",
---   r = { "<cmd>Trouble lsp_references<cr>", "References" },
---   f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
---   d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
---   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
---   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
---   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
--- }
+lvim.builtin.which_key.mappings["t"] = {
+  name = "+Trouble",
+  r = { "<cmd>Trouble lsp_references<cr>", "References" },
+  f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
+  d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
+  q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
+  l = { "<cmd>Trouble loclist<cr>", "LocationList" },
+  w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
+}
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -121,9 +130,46 @@ lvim.builtin.treesitter.highlight.enable = true
 -- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
 -- local opts = {} -- check the lspconfig documentation for a list of all possible options
 -- require("lvim.lsp.manager").setup("pyright", opts)
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "eslint" })
-local opts = {} -- check the lspconfig documentation for a list of all possible options
-require("lvim.lsp.manager").setup("eslint", opts)
+-- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "eslint" })
+-- local eslintopts = {
+--   codeAction = {
+--     disableRuleComment = {
+--       enable = true,
+--       location = "separateLine"
+--     },
+--     showDocumentation = {
+--       enable = true
+--     }
+--   },
+--   codeActionOnSave = {
+--     enable = false,
+--     mode = "all"
+--   },
+--   experimental = {
+--     useFlatConfig = false
+--   },
+--   rootPatterns = {
+--     ".eslintrc.js",
+--     "package.json"
+--   },
+--   format = true,
+--   nodePath = "",
+--   onIgnoredFiles = "off",
+--   packageManager = "yarn",
+--   problems = {
+--     shortenToSingleLine = false
+--   },
+--   quiet = false,
+--   rulesCustomizations = {},
+--   run = "onType",
+--   useESLintClass = false,
+--   validate = "on",
+--   workingDirectory = {
+--     mode = "location"
+--   },
+--   filetypes = { "typescript", "typescriptreact", "css", "html", "scss", "angular", "javascript" },
+-- } -- check the lspconfig documentation for a list of all possible options
+-- require("lvim.lsp.manager").setup("eslint", eslintopts)
 
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "angularls" })
 local opts = {} -- check the lspconfig documentation for a list of all possible options
@@ -157,39 +203,52 @@ formatters.setup {
     ---@usage arguments to pass to the formatter
     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
     -- extra_args = { "--print-with", "100" },
-    extra_args = { "--line-width", "80" },
+    -- extra_args = { "--line-width", "80" },
     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    filetypes = { "typescript", "typescriptreact", "css", "html", "scss", "angular" },
+    filetypes = { "typescript", "typescriptreact", "css", "html", "scss", "angular", "json", "javascript" },
   },
 }
 
 -- -- set additional linters
--- local linters = require "lvim.lsp.null-ls.linters"
--- linters.setup {
---   { command = "flake8", filetypes = { "python" } },
---   {
---     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
---     command = "shellcheck",
---     ---@usage arguments to pass to the formatter
---     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
---     extra_args = { "--severity", "warning" },
---   },
---   {
---     command = "codespell",
---     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
---     filetypes = { "javascript", "python" },
---   },
--- }
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup {
+  { command = "eslint_d",
+    filetypes = { "typescript", "typescriptreact", "css", "html", "scss", "angular", "json", "javascript" },
+  }
+  --   -- { command = "flake8", filetypes = { "python" } },
+  --   -- {
+  --   --   -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+  --   --   command = "shellcheck",
+  --   --   ---@usage arguments to pass to the formatter
+  --   --   -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+  --   --   extra_args = { "--severity", "warning" },
+  --   -- },
+  --   -- {
+  --   --   command = "codespell",
+  --   --   ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+  --   --   filetypes = { "javascript", "python" },
+  --   -- },
+}
+
+local code_actions = require "lvim.lsp.null-ls.code_actions"
+code_actions.setup {
+  {
+    exe = "eslint_d",
+    filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
+  },
+}
+
 
 -- Additional Plugins
--- lvim.plugins = {
---     {
---       "folke/trouble.nvim",
---       cmd = "TroubleToggle",
---     },
--- }
 lvim.plugins = {
-  { "elgiano/nvim-treesitter-angular", branch = "topic/jsx-fix" }
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  },
+  { "elgiano/nvim-treesitter-angular", branch = "topic/jsx-fix" },
+  {
+    "ThePrimeagen/git-worktree.nvim"
+  }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
